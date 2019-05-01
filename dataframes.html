@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.5">
-<title>IoT Python on Particle Mesh Devices</title>
+<title>Plotserver</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -436,113 +436,108 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
-<body class="article toc2 toc-left">
+<body class="article">
 <div id="header">
-<h1>IoT Python on Particle Mesh Devices</h1>
-<div id="toc" class="toc2">
-<div id="toctitle">Table of Contents</div>
-<ul class="sectlevel1">
-<li><a href="#_overview">1. Overview</a></li>
-<li><a href="#_bootloader">2. Bootloader</a></li>
-<li><a href="#_circuitpython">3. CircuitPython</a></li>
-<li><a href="#_customizing_circuitpython">4. Customizing CircuitPython</a></li>
-</ul>
-</div>
+<h1>Plotserver</h1>
 </div>
 <div id="content">
-<div class="sect1">
-<h2 id="_overview">1. Overview</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>&#8220;IoT Python&#8221; is a special version of Python for microcontrollers. This document describes how to install &#8220;IoT Python&#8221; on <a href="particle_mesh.html">Particle Mesh devices</a> available at the <a href="https://store.particle.io/collections/mesh">Paricle store</a>.</p>
-</div>
-<div class="paragraph">
-<p>The Particle &#8220;Argon&#8221; is the recommended device. The less expensive &#8220;Xenon&#8221; can also be used for projects that do not require WiFi connectivity.</p>
-</div>
-<div class="admonitionblock warning">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-warning" title="Warning"></i>
-</td>
-<td class="content">
-Installing &#8220;IoT Python&#8221; completely removes the <a href="https://docs.particle.io/">pre-installed software</a> the devices come with.
-</td>
-</tr>
-</table>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_bootloader">2. Bootloader</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>CircuitPython requires a special bootloader. The installation instructions below are based on an <a href="https://learn.adafruit.com/circuitpython-on-the-nrf52/build-flash-particle">Adafruit tutorial</a> and require the use of a <a href="https://www.adafruit.com/product/3571">Segger J-Link</a>. The steps need to be performed only once.</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
+<div class="ulist">
+<ul>
 <li>
-<p>Install the <a href="https://www.nordicsemi.com/Software-and-Tools/Development-Tools/nRF5-Command-Line-Tools/Download">nrfjprog</a> program from Nordic Semiconductor</p>
+<p>Construct dataframe row by row:</p>
 </li>
-<li>
-<p>Download the appropriate <a href="https://github.com/adafruit/Adafruit_nRF52_Bootloader/releases">bootloader</a> for your board</p>
-</li>
-<li>
-<p>Connect the Particle board to a JLink. Connect USB cables to the JLink (programming) <em>and</em> the board (power). Then run the following command (replace the <code>particle_cpy.hex</code> with the name of the file you downloaded):</p>
-</li>
-</ol>
+</ul>
 </div>
-<div class="paragraph">
-<p><code>nrfjprog --program particle_cpy.hex --chiperase -f nrf52 --reset</code></p>
-</div>
-<div id="Jlink" class="imageblock">
+<div class="listingblock">
 <div class="content">
-<img src="figures/jlink.jpg" alt="jlink" width="432">
-</div>
-<div class="title">Figure 1. Particle IO Board connected to JLink</div>
-</div>
-<div class="paragraph">
-<p>Disconnect the J-Link and press the reset button.</p>
-</div>
-<div class="paragraph">
-<p>The same procedure can also be used to install other binaries.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_circuitpython">3. CircuitPython</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Once the correct bootloader has been installed, the board appears as a drive named <code>ARGONBOOT</code> or <code>XENONBOOT</code> on the connected computer.</p>
-</div>
-<div class="paragraph">
-<p>Download the latest CircuitPython <a href="https://github.com/adafruit/circuitpython/releases/">Release</a> with extension <code>uf2</code> and copy it to the drive. The drive disappears and instead a drive <code>CIRCUITPY</code> appears. CircuitPython loads code and libraries installed on this drive.</p>
-</div>
-<div class="paragraph">
-<p>To install a different version of CircuitPython, press the <code>RESET</code> button <strong>twice</strong> in rapid succession to get back the boot drive. Then follow the same procedure as outlined above.</p>
-</div>
-<div class="paragraph">
-<p>The <a href="https://learn.adafruit.com/welcome-to-circuitpython/">CircuitPython tutorial</a> has programming instructions.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_customizing_circuitpython">4. Customizing CircuitPython</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>CircuitPython is an <a href="https://github.com/adafruit/circuitpython">open-source implementation</a> of Python in C. See the <a href="https://circuitpython.readthedocs.io/en/latest/README.html">documentation</a> for instructions on <a href="https://circuitpython.readthedocs.io/en/latest/docs/design_guide.html">customizing</a>.</p>
-</div>
-<div class="paragraph">
-<p>The <a href="https://circuitpython.readthedocs.io/en/latest/README.html">CircuitPython Documentation</a> has instructions for</p>
-</div>
+<pre class="pygments highlight"><code data-lang="python"><span></span><span class="tok-kn">import</span> <span class="tok-nn">pandas</span> <span class="tok-kn">as</span> <span class="tok-nn">pd</span>
+<span class="tok-n">list_of_lists</span> <span class="tok-o">=</span> <span class="tok-p">[]</span>
+<span class="tok-n">list_of_lists</span><span class="tok-o">.</span><span class="tok-n">append</span><span class="tok-p">([</span><span class="tok-mi">1</span><span class="tok-p">,</span><span class="tok-mi">2</span><span class="tok-p">,</span><span class="tok-mi">3</span><span class="tok-p">])</span>
+<span class="tok-n">list_of_lists</span><span class="tok-o">.</span><span class="tok-n">append</span><span class="tok-p">([</span><span class="tok-mi">4</span><span class="tok-p">,</span><span class="tok-mi">5</span><span class="tok-p">,</span><span class="tok-mi">6</span><span class="tok-p">])</span>
+
+<span class="tok-n">pd</span><span class="tok-o">.</span><span class="tok-n">DataFrame</span><span class="tok-p">(</span><span class="tok-n">list_of_lists</span><span class="tok-p">,</span> <span class="tok-n">columns</span><span class="tok-o">=</span><span class="tok-p">[</span><span class="tok-s1">&#39;A&#39;</span><span class="tok-p">,</span> <span class="tok-s1">&#39;B&#39;</span><span class="tok-p">,</span> <span class="tok-s1">&#39;C&#39;</span><span class="tok-p">])</span>
+<span class="tok-c1">#    A  B  C</span>
+<span class="tok-c1"># 0  1  2  3</span>
+<span class="tok-c1"># 1  4  5  6</span></code></pre>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-05-01 18:59:36 UTC
+Last updated 2019-05-01 18:54:55 UTC
 </div>
 </div>
+<style>
+pre.pygments .hll { background-color: #ffffcc }
+pre.pygments  { background: #f8f8f8; }
+pre.pygments .tok-c { color: #408080; font-style: italic } /* Comment */
+pre.pygments .tok-err { border: 1px solid #FF0000 } /* Error */
+pre.pygments .tok-k { color: #008000; font-weight: bold } /* Keyword */
+pre.pygments .tok-o { color: #666666 } /* Operator */
+pre.pygments .tok-ch { color: #408080; font-style: italic } /* Comment.Hashbang */
+pre.pygments .tok-cm { color: #408080; font-style: italic } /* Comment.Multiline */
+pre.pygments .tok-cp { color: #BC7A00 } /* Comment.Preproc */
+pre.pygments .tok-cpf { color: #408080; font-style: italic } /* Comment.PreprocFile */
+pre.pygments .tok-c1 { color: #408080; font-style: italic } /* Comment.Single */
+pre.pygments .tok-cs { color: #408080; font-style: italic } /* Comment.Special */
+pre.pygments .tok-gd { color: #A00000 } /* Generic.Deleted */
+pre.pygments .tok-ge { font-style: italic } /* Generic.Emph */
+pre.pygments .tok-gr { color: #FF0000 } /* Generic.Error */
+pre.pygments .tok-gh { color: #000080; font-weight: bold } /* Generic.Heading */
+pre.pygments .tok-gi { color: #00A000 } /* Generic.Inserted */
+pre.pygments .tok-go { color: #888888 } /* Generic.Output */
+pre.pygments .tok-gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+pre.pygments .tok-gs { font-weight: bold } /* Generic.Strong */
+pre.pygments .tok-gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+pre.pygments .tok-gt { color: #0044DD } /* Generic.Traceback */
+pre.pygments .tok-kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+pre.pygments .tok-kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+pre.pygments .tok-kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+pre.pygments .tok-kp { color: #008000 } /* Keyword.Pseudo */
+pre.pygments .tok-kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+pre.pygments .tok-kt { color: #B00040 } /* Keyword.Type */
+pre.pygments .tok-m { color: #666666 } /* Literal.Number */
+pre.pygments .tok-s { color: #BA2121 } /* Literal.String */
+pre.pygments .tok-na { color: #7D9029 } /* Name.Attribute */
+pre.pygments .tok-nb { color: #008000 } /* Name.Builtin */
+pre.pygments .tok-nc { color: #0000FF; font-weight: bold } /* Name.Class */
+pre.pygments .tok-no { color: #880000 } /* Name.Constant */
+pre.pygments .tok-nd { color: #AA22FF } /* Name.Decorator */
+pre.pygments .tok-ni { color: #999999; font-weight: bold } /* Name.Entity */
+pre.pygments .tok-ne { color: #D2413A; font-weight: bold } /* Name.Exception */
+pre.pygments .tok-nf { color: #0000FF } /* Name.Function */
+pre.pygments .tok-nl { color: #A0A000 } /* Name.Label */
+pre.pygments .tok-nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
+pre.pygments .tok-nt { color: #008000; font-weight: bold } /* Name.Tag */
+pre.pygments .tok-nv { color: #19177C } /* Name.Variable */
+pre.pygments .tok-ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
+pre.pygments .tok-w { color: #bbbbbb } /* Text.Whitespace */
+pre.pygments .tok-mb { color: #666666 } /* Literal.Number.Bin */
+pre.pygments .tok-mf { color: #666666 } /* Literal.Number.Float */
+pre.pygments .tok-mh { color: #666666 } /* Literal.Number.Hex */
+pre.pygments .tok-mi { color: #666666 } /* Literal.Number.Integer */
+pre.pygments .tok-mo { color: #666666 } /* Literal.Number.Oct */
+pre.pygments .tok-sa { color: #BA2121 } /* Literal.String.Affix */
+pre.pygments .tok-sb { color: #BA2121 } /* Literal.String.Backtick */
+pre.pygments .tok-sc { color: #BA2121 } /* Literal.String.Char */
+pre.pygments .tok-dl { color: #BA2121 } /* Literal.String.Delimiter */
+pre.pygments .tok-sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+pre.pygments .tok-s2 { color: #BA2121 } /* Literal.String.Double */
+pre.pygments .tok-se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
+pre.pygments .tok-sh { color: #BA2121 } /* Literal.String.Heredoc */
+pre.pygments .tok-si { color: #BB6688; font-weight: bold } /* Literal.String.Interpol */
+pre.pygments .tok-sx { color: #008000 } /* Literal.String.Other */
+pre.pygments .tok-sr { color: #BB6688 } /* Literal.String.Regex */
+pre.pygments .tok-s1 { color: #BA2121 } /* Literal.String.Single */
+pre.pygments .tok-ss { color: #19177C } /* Literal.String.Symbol */
+pre.pygments .tok-bp { color: #008000 } /* Name.Builtin.Pseudo */
+pre.pygments .tok-fm { color: #0000FF } /* Name.Function.Magic */
+pre.pygments .tok-vc { color: #19177C } /* Name.Variable.Class */
+pre.pygments .tok-vg { color: #19177C } /* Name.Variable.Global */
+pre.pygments .tok-vi { color: #19177C } /* Name.Variable.Instance */
+pre.pygments .tok-vm { color: #19177C } /* Name.Variable.Magic */
+pre.pygments .tok-il { color: #666666 } /* Literal.Number.Integer.Long */
+</style>
 <script type="text/x-mathjax-config">
 MathJax.Hub.Config({
   messageStyle: "none",
