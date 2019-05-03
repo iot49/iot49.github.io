@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.5">
-<title>IoT49: Electronics for IoT</title>
+<title>CircuitPython on Particle Mesh Devices</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -438,48 +438,157 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-left">
 <div id="header">
-<h1>IoT49: Electronics for IoT</h1>
+<h1>CircuitPython on Particle Mesh Devices</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#_stuff">1. Stuff</a></li>
+<li><a href="#_overview">1. Overview</a></li>
+<li><a href="#_bootloader">2. Bootloader</a></li>
+<li><a href="#_circuitpython">3. CircuitPython</a></li>
+<li><a href="#_customizing_circuitpython">4. Customizing CircuitPython</a></li>
 </ul>
 </div>
 </div>
 <div id="content">
-<div id="preamble">
+<div class="sect1">
+<h2 id="_overview">1. Overview</h2>
 <div class="sectionbody">
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p><a href="install/index.html">Install Python</a></p>
-</li>
-<li>
-<p><a href="iotpython/index.html">IoT Python</a></p>
-</li>
-<li>
-<p>Projects</p>
-</li>
-</ol>
+<div class="paragraph">
+<p><a href="https://www.particle.io/">Particle IO</a> sells boards featuring an <a href="https://www.nordicsemi.com/Products/Low-power-short-range-wireless/nRF52840">nRF52840</a> and, on select boards, an WiFi or LTE modems.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 1. Particle Mesh Device Comparison (click on images to enlarge)</caption>
+<colgroup>
+<col style="width: 9.0909%;">
+<col style="width: 9.0909%;">
+<col style="width: 27.2727%;">
+<col style="width: 27.2727%;">
+<col style="width: 27.2728%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-center valign-middle">Board</th>
+<th class="tableblock halign-center valign-middle">Radio</th>
+<th class="tableblock halign-center valign-middle">Block diagram</th>
+<th class="tableblock halign-center valign-middle">Pins<sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnotedef_1" title="View footnote.">1</a>]</sup></th>
+<th class="tableblock halign-center valign-middle">Schematic</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><span class="image"><a class="image" href="https://docs.particle.io/datasheets/mesh/xenon-datasheet"><img src="figures/xenon-top.png" alt="xenon top"></a></span></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">BLE</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><span class="image"><a class="image" href="figures/xenon-block-diagram.png"><img src="figures/xenon-block-diagram.png" alt="xenon block diagram"></a></span></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><span class="image"><a class="image" href="figures/xenon-pinout.png"><img src="figures/xenon-pinout.png" alt="xenon pinout"></a></span></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><span class="image"><a class="image" href="figures/xenon-v1.00-schematic.pdf"><img src="figures/schematic-main.png" alt="schematic main"></a></span></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><span class="image"><a class="image" href="https://docs.particle.io/datasheets/wi-fi/argon-datasheet"><img src="figures/argon-top.png" alt="argon top"></a></span></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">BLE, WiFi (ESP32)</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><span class="image"><a class="image" href="figures/argon-block-diagram.png"><img src="figures/argon-block-diagram.png" alt="argon block diagram"></a></span></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><span class="image"><a class="image" href="figures/argon-pinout.png"><img src="figures/argon-pinout.png" alt="argon pinout"></a></span></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><span class="image"><a class="image" href="figures/argon-v1.00-schematic.pdf"><img src="figures/schematic-esp32.png" alt="schematic esp32"></a></span></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><span class="image"><a class="image" href="https://docs.particle.io/datasheets/cellular/boron-datasheet"><img src="figures/boron-top.png" alt="boron top"></a></span></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">BLE, LTE</p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><span class="image"><a class="image" href="figures/boron-block-diagram.png"><img src="figures/boron-block-diagram.png" alt="boron block diagram"></a></span></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><span class="image"><a class="image" href="figures/boron-pinout.png"><img src="figures/boron-pinout.png" alt="boron pinout"></a></span></p></td>
+<td class="tableblock halign-center valign-middle"><p class="tableblock"><span class="image"><img src="figures/schematic-ublox.png" alt="schematic ublox"></span></p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>The boards come preloaded with software for connecting to Particle IO&#8217;s cloud service. This guide describes how to install <a href="https://learn.adafruit.com/welcome-to-circuitpython/">CircuitPython</a> on the nRF52840 and <a href="http://micropython.org/">MicroPython</a> on the ESP32 of the Argon board.</p>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+Doing so will completely erase the preloaded software and capabilities for connecting to the Particle IO cloud.
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_stuff">1. Stuff</h2>
+<h2 id="_bootloader">2. Bootloader</h2>
 <div class="sectionbody">
-<div class="ulist">
-<ul>
+<div class="paragraph">
+<p>CircuitPython requires a special bootloader. The installation instructions below are based on an <a href="https://learn.adafruit.com/circuitpython-on-the-nrf52/build-flash-particle">Adafruit tutorial</a> and require the use of a <a href="https://www.adafruit.com/product/3571">Segger J-Link</a>. The steps need to be performed only once.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
 <li>
-<p><a href="plotserver.html">Plotserver</a></p>
+<p>Install the <a href="https://www.nordicsemi.com/Software-and-Tools/Development-Tools/nRF5-Command-Line-Tools/Download">nrfjprog</a> program from Nordic Semiconductor</p>
 </li>
-</ul>
+<li>
+<p>Download the appropriate <a href="https://github.com/adafruit/Adafruit_nRF52_Bootloader/releases">bootloader</a> for your board</p>
+</li>
+<li>
+<p>Connect the Particle board to a JLink. Connect USB cables to the JLink (programming) <em>and</em> the board (power). Then run the following command (replace the <code>particle_cpy.hex</code> with the name of the file you downloaded):</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><code>nrfjprog --program particle_cpy.hex --chiperase -f nrf52 --reset</code></p>
+</div>
+<div id="Jlink" class="imageblock">
+<div class="content">
+<img src="figures/jlink.jpg" alt="jlink" width="432">
+</div>
+<div class="title">Figure 1. Particle IO Board connected to JLink</div>
+</div>
+<div class="paragraph">
+<p>Disconnect the J-Link and press the reset button.</p>
+</div>
+<div class="paragraph">
+<p>The same procedure can also be used to install other binaries.</p>
 </div>
 </div>
+</div>
+<div class="sect1">
+<h2 id="_circuitpython">3. CircuitPython</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Once the correct bootloader has been installed, the board appears as a drive named <code>ARGONBOOT</code> or <code>XENONBOOT</code> on the connected computer.</p>
+</div>
+<div class="paragraph">
+<p>Download the latest CircuitPython <a href="https://github.com/adafruit/circuitpython/releases/">Release</a> with extension <code>uf2</code> and copy it to the drive. The drive disappears and instead a drive <code>CIRCUITPY</code> appears. CircuitPython loads code and libraries installed on this drive.</p>
+</div>
+<div class="paragraph">
+<p>To install a different version of CircuitPython, press the <code>RESET</code> button <strong>twice</strong> in rapid succession to get back the boot drive. Then follow the same procedure as outlined above.</p>
+</div>
+<div class="paragraph">
+<p>The <a href="https://learn.adafruit.com/welcome-to-circuitpython/">CircuitPython tutorial</a> has programming instructions.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_customizing_circuitpython">4. Customizing CircuitPython</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>CircuitPython is an <a href="https://github.com/adafruit/circuitpython">open-source implementation</a> of Python in C. See the <a href="https://circuitpython.readthedocs.io/en/latest/README.html">documentation</a> for instructions on <a href="https://circuitpython.readthedocs.io/en/latest/docs/design_guide.html">customizing</a>.</p>
+</div>
+<div class="paragraph">
+<p>The <a href="https://circuitpython.readthedocs.io/en/latest/README.html">CircuitPython Documentation</a> has instructions for</p>
+</div>
+</div>
+</div>
+</div>
+<div id="footnotes">
+<hr>
+<div class="footnote" id="_footnotedef_1">
+<a href="#_footnoteref_1">1</a>. Under CircuitPython pin functions (except power and analog) can be reassigned. All pins support PWM.
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-05-02 19:51:36 UTC
+Last updated 2019-04-05 23:45:01 UTC
 </div>
 </div>
 <script type="text/x-mathjax-config">

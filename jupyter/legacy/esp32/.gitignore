@@ -1,0 +1,8 @@
+.direnv
+.DS_Store
+.pypirc
+.ipynb*
+*.pyc
+*~
+sdkconfig
+esp32_all

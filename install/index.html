@@ -444,7 +444,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel1">
 <li><a href="#_overview">1. Overview</a></li>
 <li><a href="#_bootloader">2. Bootloader</a></li>
-<li><a href="#_circuitpython">3. CircuitPython</a></li>
+<li><a href="#_iot_python">3. IoT Python</a></li>
 <li><a href="#_customizing_circuitpython">4. Customizing CircuitPython</a></li>
 </ul>
 </div>
@@ -454,7 +454,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="_overview">1. Overview</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>&#8220;IoT Python&#8221; is a special version of Python for microcontrollers. This document describes how to install &#8220;IoT Python&#8221; on <a href="particle_mesh.html">Particle Mesh devices</a> available at the <a href="https://store.particle.io/collections/mesh">Paricle store</a>.</p>
+<p>&#8220;IoT Python&#8221; is a special version of Python for microcontrollers. This document describes how to install it on <a href="particle_mesh.html">Particle Mesh devices</a> available at the <a href="https://store.particle.io/collections/mesh">Paricle store</a>.</p>
 </div>
 <div class="paragraph">
 <p>The Particle &#8220;Argon&#8221; is the recommended device. The less expensive &#8220;Xenon&#8221; can also be used for projects that do not require WiFi connectivity.</p>
@@ -466,7 +466,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <i class="fa icon-warning" title="Warning"></i>
 </td>
 <td class="content">
-Installing &#8220;IoT Python&#8221; completely removes the <a href="https://docs.particle.io/">pre-installed software</a> the devices come with.
+Installing &#8220;IoT Python&#8221; removes the <a href="https://docs.particle.io/">pre-installed software</a> the devices come with.
 </td>
 </tr>
 </table>
@@ -477,23 +477,26 @@ Installing &#8220;IoT Python&#8221; completely removes the <a href="https://docs
 <h2 id="_bootloader">2. Bootloader</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>CircuitPython requires a special bootloader. The installation instructions below are based on an <a href="https://learn.adafruit.com/circuitpython-on-the-nrf52/build-flash-particle">Adafruit tutorial</a> and require the use of a <a href="https://www.adafruit.com/product/3571">Segger J-Link</a>. The steps need to be performed only once.</p>
+<p>CircuitPython requires a special bootloader. The installation instructions below are based on an <a href="https://learn.adafruit.com/circuitpython-on-the-nrf52/">Adafruit tutorial</a> and require the use of a <a href="https://www.adafruit.com/product/3571">Segger J-Link</a>. The steps need to be performed only once.</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Install the <a href="https://www.nordicsemi.com/Software-and-Tools/Development-Tools/nRF5-Command-Line-Tools/Download">nrfjprog</a> program from Nordic Semiconductor</p>
+<p>Install the <a href="https://www.segger.com/downloads/jlink/">JLink Software</a></p>
 </li>
 <li>
-<p>Download the appropriate <a href="https://github.com/adafruit/Adafruit_nRF52_Bootloader/releases">bootloader</a> for your board</p>
+<p>Download the <a href="https://www.nordicsemi.com/Software-and-Tools/Development-Tools/nRF5-Command-Line-Tools/Download">nrfjprog</a> and un-tar the file (e.g. by double-clicking on the tar file)</p>
 </li>
 <li>
-<p>Connect the Particle board to a JLink. Connect USB cables to the JLink (programming) <em>and</em> the board (power). Then run the following command (replace the <code>particle_cpy.hex</code> with the name of the file you downloaded):</p>
+<p>Download the appropriate <a href="https://github.com/adafruit/Adafruit_nRF52_Bootloader/releases">bootloader hex-file</a> for your board (e.g. argon or xenon)</p>
+</li>
+<li>
+<p>Connect the Particle board to a JLink. Connect USB cables to the JLink (programming) <strong class="red">and</strong> the board (power). Then run the following command (replace the <code>bootloader.hex</code> with the name of the file you downloaded and use the appropriate path for <code>nrfjprog</code>):</p>
+<div class="paragraph">
+<p><code>nrfjprog --program bootloader.hex --chiperase -f nrf52 --reset</code></p>
+</div>
 </li>
 </ol>
-</div>
-<div class="paragraph">
-<p><code>nrfjprog --program particle_cpy.hex --chiperase -f nrf52 --reset</code></p>
 </div>
 <div id="Jlink" class="imageblock">
 <div class="content">
@@ -504,13 +507,10 @@ Installing &#8220;IoT Python&#8221; completely removes the <a href="https://docs
 <div class="paragraph">
 <p>Disconnect the J-Link and press the reset button.</p>
 </div>
-<div class="paragraph">
-<p>The same procedure can also be used to install other binaries.</p>
-</div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_circuitpython">3. CircuitPython</h2>
+<h2 id="_iot_python">3. IoT Python</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Once the correct bootloader has been installed, the board appears as a drive named <code>ARGONBOOT</code> or <code>XENONBOOT</code> on the connected computer.</p>
@@ -519,7 +519,7 @@ Installing &#8220;IoT Python&#8221; completely removes the <a href="https://docs
 <p>Download the latest CircuitPython <a href="https://github.com/adafruit/circuitpython/releases/">Release</a> with extension <code>uf2</code> and copy it to the drive. The drive disappears and instead a drive <code>CIRCUITPY</code> appears. CircuitPython loads code and libraries installed on this drive.</p>
 </div>
 <div class="paragraph">
-<p>To install a different version of CircuitPython, press the <code>RESET</code> button <strong>twice</strong> in rapid succession to get back the boot drive. Then follow the same procedure as outlined above.</p>
+<p>To install a different version of CircuitPython, press the <code>RESET</code> button <strong class="red">twice</strong> in rapid succession to get back the boot drive. Then follow the same procedure as outlined above.</p>
 </div>
 <div class="paragraph">
 <p>The <a href="https://learn.adafruit.com/welcome-to-circuitpython/">CircuitPython tutorial</a> has programming instructions.</p>
@@ -540,7 +540,7 @@ Installing &#8220;IoT Python&#8221; completely removes the <a href="https://docs
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-05-01 18:59:36 UTC
+Last updated 2019-05-02 18:50:28 UTC
 </div>
 </div>
 <script type="text/x-mathjax-config">
