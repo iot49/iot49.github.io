@@ -1,2 +1,1 @@
-# iot49.github.io
-Electronics for IoT
+# Electronics for IoT
