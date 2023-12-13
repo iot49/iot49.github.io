@@ -19,5 +19,3 @@ Wouldn't the same software run on a laptop? Absolutely! Without Docker, compatib
 
 But isn't this slow? Not in my experience. I moved all my MicroPython development from an Intel i7 CPU to a Raspberry Pi 4 with 2 GB memory without noticing a performance degradation relevant for my workflow. 
 
-
-2023 intro.md changed!
