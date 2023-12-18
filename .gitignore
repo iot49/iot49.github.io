@@ -1,5 +1,6 @@
 .direnv
 _build
+leaf
 
 # MacOS desktop metadata files
 .DS_Store
